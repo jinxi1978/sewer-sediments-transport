@@ -1,0 +1,368 @@
+[TITLE]
+;;Project Title/Notes
+ œÓƒø
+
+[OPTIONS]
+;;Option             Value
+FLOW_UNITS           CMS
+INFILTRATION         HORTON
+FLOW_ROUTING         DYNWAVE
+LINK_OFFSETS         ELEVATION
+MIN_SLOPE            0
+ALLOW_PONDING        NO
+SKIP_STEADY_STATE    NO
+
+IGNORE_SNOWMELT      YES
+IGNORE_GROUNDWATER   YES
+START_DATE           01/01/2006
+START_TIME           00:00:00
+REPORT_START_DATE    01/01/2006
+REPORT_START_TIME    00:00:00
+END_DATE             01/01/2010
+END_TIME             00:00:00
+SWEEP_START          01/01
+SWEEP_END            12/31
+DRY_DAYS             30.000
+REPORT_STEP          02:00:00
+WET_STEP             00:05:00
+DRY_STEP             01:00:00
+ROUTING_STEP         0:00:05 
+RULE_STEP            00:00:00
+
+INERTIAL_DAMPING     PARTIAL
+NORMAL_FLOW_LIMITED  BOTH
+FORCE_MAIN_EQUATION  H-W
+VARIABLE_STEP        0.75
+LENGTHENING_STEP     0
+MIN_SURFAREA         1.167
+MAX_TRIALS           8
+HEAD_TOLERANCE       0.0015
+SYS_FLOW_TOL         5
+LAT_FLOW_TOL         5
+MINIMUM_STEP         0.5000
+THREADS              1
+
+[EVAPORATION]
+;;Data Source    Parameters
+;;-------------- ----------------
+CONSTANT         0
+DRY_ONLY         NO
+
+[RAINGAGES]
+;;Name           Format    Interval SCF      Source    
+;;-------------- --------- ------ ------ ----------
+R_1              INTENSITY 1:00     1.000    FILE       "2006-2015Ωµ”Í¡ø.txt" BJ1        MM   
+
+[SUBCATCHMENTS]
+;;Name           Rain Gage        Outlet           Area     %Imperv  Width    %Slope   CurbLen  SnowPack        
+;;-------------- ---------------- ---------------- -------- -------- -------- -------- -------- ----------------
+S_1              R_1              J_1              10       60       200      0.5      0                        
+
+[SUBAREAS]
+;;Subcatchment   N-Imperv   N-Perv     S-Imperv   S-Perv     PctZero    RouteTo    PctRouted 
+;;-------------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+S_1              0.015      0.24       1.5        7.6        0          OUTLET    
+
+[INFILTRATION]
+;;Subcatchment   Param1     Param2     Param3     Param4     Param5    
+;;-------------- ---------- ---------- ---------- ---------- ----------
+S_1              70         3.3        4          0          0         
+
+[JUNCTIONS]
+;;Name           Elevation  MaxDepth   InitDepth  SurDepth   Aponded   
+;;-------------- ---------- ---------- ---------- ---------- ----------
+J_1              1          3          0          0          0         
+
+[OUTFALLS]
+;;Name           Elevation  Type       Stage Data       Gated    Route To        
+;;-------------- ---------- ---------- ---------------- -------- ----------------
+J_2              0          FIXED      0.5              NO                       
+
+[CONDUITS]
+;;Name           From Node        To Node          Length     Roughness  InOffset   OutOffset  InitFlow   MaxFlow   
+;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
+C_1              J_1              J_2              200        0.013      1          0          0.005      0         
+
+[XSECTIONS]
+;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels    Culvert   
+;;-------------- ------------ ---------------- ---------- ---------- ---------- ---------- ----------
+C_1              FILLED_CIRCULAR 0.6              0.1        0          0          1                    
+
+[CONTROLS]
+
+
+
+[POLLUTANTS]
+;;Name           Units  Crain      Cgw        Crdii      Kdecay     SnowOnly   Co-Pollutant     Co-Frac    Cdwf       Cinit     
+;;-------------- ------ ---------- ---------- ---------- ---------- ---------- ---------------- ---------- ---------- ----------
+TSS              MG/L   0          0          0          0          NO         *                0.0        0.0        200       
+
+[LANDUSES]
+;;               Sweeping   Fraction   Last      
+;;Name           Interval   Available  Swept     
+;;-------------- ---------- ---------- ----------
+landuse          0          0          0         
+
+[COVERAGES]
+;;Subcatchment   Land Use         Percent   
+;;-------------- ---------------- ----------
+S_1              landuse          100       
+
+[LOADINGS]
+;;Subcatchment   Pollutant        Buildup   
+;;-------------- ---------------- ----------
+
+[BUILDUP]
+;;Land Use       Pollutant        Function   Coeff1     Coeff2     Coeff3     Per Unit  
+;;-------------- ---------------- ---------- ---------- ---------- ---------- ----------
+landuse          TSS              POW        20         2          1          AREA      
+
+[WASHOFF]
+;;Land Use       Pollutant        Function   Coeff1     Coeff2     SweepRmvl  BmpRmvl   
+;;-------------- ---------------- ---------- ---------- ---------- ---------- ----------
+landuse          TSS              EXP        0.1        2          0          0         
+
+[INFLOWS]
+;;Node           Constituent      Time Series      Type     Mfactor  Sfactor  Baseline Pattern
+;;-------------- ---------------- ---------------- -------- -------- -------- -------- --------
+J_1              FLOW             ""               FLOW     1.0      1        0.005    daily   
+J_1              TSS              ""               CONCEN   1.0      0        200     
+
+[TIMESERIES]
+;;Name           Date       Time       Value     
+;;-------------- ---------- ---------- ----------
+chaohu20110624              00:00      0         
+chaohu20110624              00:05      0         
+chaohu20110624              00:10      0         
+chaohu20110624              00:15      1.62      
+chaohu20110624              00:20      1.62      
+chaohu20110624              00:25      0         
+chaohu20110624              00:30      1.32      
+chaohu20110624              00:35      1.32      
+chaohu20110624              00:40      0         
+chaohu20110624              00:45      0         
+chaohu20110624              00:50      0         
+chaohu20110624              00:55      0         
+chaohu20110624              01:00      0         
+chaohu20110624              01:05      0         
+chaohu20110624              01:10      0         
+chaohu20110624              01:15      0         
+chaohu20110624              01:20      2.1       
+chaohu20110624              01:25      1.8       
+chaohu20110624              01:30      1.8       
+chaohu20110624              01:35      1.38      
+chaohu20110624              01:40      1.38      
+chaohu20110624              01:45      4         
+chaohu20110624              01:50      4         
+chaohu20110624              01:55      3.12      
+chaohu20110624              02:00      3.12      
+chaohu20110624              02:05      2.82      
+chaohu20110624              02:10      2.82      
+chaohu20110624              02:15      1.5       
+chaohu20110624              02:20      1.5       
+chaohu20110624              02:25      1.5       
+chaohu20110624              02:30      1.5       
+chaohu20110624              02:35      0.3       
+chaohu20110624              02:40      0.3       
+chaohu20110624              02:45      0.3       
+chaohu20110624              02:50      0.3       
+chaohu20110624              02:55      0.3       
+chaohu20110624              03:00      0.3       
+;
+null                        00:00      0         
+null                        00:05      0         
+null                        00:10      0         
+null                        00:15      0         
+null                        00:20      0         
+null                        00:25      0         
+null                        00:30      0         
+null                        00:35      0         
+null                        00:40      0         
+null                        00:45      0         
+null                        00:50      0         
+null                        00:55      0         
+null                        01:00      0         
+null                        01:05      0         
+null                        01:10      0         
+null                        01:15      0         
+null                        01:20      0         
+null                        01:25      0         
+null                        01:30      0         
+null                        01:35      0         
+null                        01:40      0         
+null                        01:45      0         
+null                        01:50      0         
+null                        01:55      0         
+null                        02:00      0         
+null                        02:05      0         
+null                        02:10      0         
+null                        02:15      0         
+null                        02:20      0         
+null                        02:25      0         
+null                        02:30      0         
+null                        02:35      0         
+null                        02:40      0         
+null                        02:45      0         
+null                        02:50      0         
+null                        02:55      0         
+null                        03:00      0         
+;
+chaohu20110712              00:00      0         
+chaohu20110712              00:05      19.98     
+chaohu20110712              00:10      13.32     
+chaohu20110712              00:15      6.66      
+chaohu20110712              00:20      1.32      
+chaohu20110712              00:25      1.32      
+chaohu20110712              00:30      1.32      
+chaohu20110712              00:35      16.02     
+chaohu20110712              00:40      18.66     
+chaohu20110712              00:45      4.02      
+chaohu20110712              00:50      1.32      
+chaohu20110712              00:55      0         
+chaohu20110712              01:00      1.32      
+chaohu20110712              01:05      3.06      
+chaohu20110712              01:10      2.82      
+chaohu20110712              01:15      1.32      
+chaohu20110712              01:20      16.02     
+chaohu20110712              01:25      21.36     
+chaohu20110712              01:30      22.68     
+chaohu20110712              01:35      18.66     
+chaohu20110712              01:40      16.02     
+chaohu20110712              01:45      24        
+chaohu20110712              01:50      13.32     
+chaohu20110712              01:55      10.68     
+chaohu20110712              02:00      5.34      
+chaohu20110712              02:05      2.64      
+chaohu20110712              02:10      1.32      
+chaohu20110712              02:15      1.32      
+chaohu20110712              02:20      0         
+chaohu20110712              02:25      1.32      
+chaohu20110712              02:30      2.64      
+chaohu20110712              02:35      5.34      
+chaohu20110712              02:40      2.64      
+chaohu20110712              02:45      1.32      
+chaohu20110712              02:50      2.64      
+chaohu20110712              02:55      2.64      
+chaohu20110712              03:00      1.32      
+chaohu20110712              03:05      1.32      
+;
+chaohu20110717              00:00      7.74      
+chaohu20110717              00:05      10.32     
+chaohu20110717              00:10      33.54     
+chaohu20110717              00:15      52.92     
+chaohu20110717              00:20      70.98     
+chaohu20110717              00:25      61.92     
+chaohu20110717              00:30      33.54     
+chaohu20110717              00:35      73.56     
+chaohu20110717              00:40      49.5      
+chaohu20110717              00:45      87.72     
+chaohu20110717              00:50      100.62    
+chaohu20110717              00:55      120       
+chaohu20110717              01:00      64.5      
+chaohu20110717              01:05      68.4      
+chaohu20110717              01:10      107.1     
+chaohu20110717              01:15      120       
+chaohu20110717              01:20      96.78     
+chaohu20110717              01:25      36.12     
+chaohu20110717              01:30      70.98     
+chaohu20110717              01:35      36.12     
+chaohu20110717              01:40      38.7      
+chaohu20110717              01:45      51.6      
+chaohu20110717              01:50      42.6      
+chaohu20110717              01:55      64.5      
+chaohu20110717              02:00      40.8      
+chaohu20110717              02:05      38.7      
+chaohu20110717              02:10      24.54     
+chaohu20110717              02:15      27.12     
+chaohu20110717              02:20      29.7      
+chaohu20110717              02:25      19.38     
+chaohu20110717              02:30      16.8      
+chaohu20110717              02:35      28.38     
+chaohu20110717              02:40      29.7      
+chaohu20110717              02:45      15.48     
+chaohu20110717              02:50      10.32     
+chaohu20110717              02:55      16.8      
+chaohu20110717              03:00      9.06      
+chaohu20110717              03:05      7.74      
+chaohu20110717              03:10      5.16      
+;
+chaohu20110726              00:00      56.82     
+chaohu20110726              00:05      56.82     
+chaohu20110726              00:10      54.3      
+chaohu20110726              00:15      65.7      
+chaohu20110726              00:20      88.44     
+chaohu20110726              00:25      46.74     
+chaohu20110726              00:30      35.34     
+chaohu20110726              00:35      2.16      
+chaohu20110726              00:40      0.36      
+chaohu20110726              00:45      0         
+chaohu20110726              00:50      0         
+chaohu20110726              00:55      0         
+chaohu20110726              01:00      0         
+chaohu20110726              01:05      12.66     
+chaohu20110726              01:10      16.44     
+chaohu20110726              01:15      0         
+chaohu20110726              01:20      0         
+chaohu20110726              01:25      0         
+chaohu20110726              01:30      0         
+chaohu20110726              01:35      0         
+chaohu20110726              01:40      0         
+chaohu20110726              01:45      0         
+chaohu20110726              01:50      12.66     
+chaohu20110726              01:55      15.78     
+chaohu20110726              02:00      0.66      
+chaohu20110726              02:05      0         
+chaohu20110726              02:10      0         
+chaohu20110726              02:15      0         
+chaohu20110726              02:20      0         
+chaohu20110726              02:25      0         
+chaohu20110726              02:30      0         
+chaohu20110726              02:35      0         
+chaohu20110726              02:40      0         
+chaohu20110726              02:45      0         
+chaohu20110726              02:50      0         
+chaohu20110726              02:55      0         
+chaohu20110726              03:00      0         
+
+[PATTERNS]
+;;Name           Type       Multipliers
+;;-------------- ---------- -----------
+daily            HOURLY     0.4   0.43  0.31  0.26  0.36  0.59 
+daily                       0.89  1     0.92  0.82  0.72  0.85 
+daily                       0.98  0.81  0.95  0.72  0.84  0.87 
+daily                       0.92  0.99  0.85  0.73  0.65  0.58 
+
+[REPORT]
+;;Reporting Options
+SUBCATCHMENTS ALL
+NODES ALL
+LINKS ALL
+
+[TAGS]
+
+[MAP]
+DIMENSIONS 981.250 951.509 1210.417 1048.491
+Units      None
+
+[COORDINATES]
+;;Node           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+J_1              1000.000           1000.000          
+J_2              1200.000           1000.000          
+
+[VERTICES]
+;;Link           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+
+[Polygons]
+;;Subcatchment   X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+S_1              1185.000           1043.583          
+S_1              1189.167           955.917           
+S_1              991.667            957.083           
+S_1              992.000            1044.083          
+
+[SYMBOLS]
+;;Gage           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+
